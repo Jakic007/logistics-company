@@ -3,19 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.13.0",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "autoprefixer": "^9.8.6",
+    "aws-sdk": "^2.918.0",
+    "postcss": "^7.0.35",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-native-qr-generator": "^1.0.4",
+    "react-qr-reader": "^2.2.1",
+    "react-qr-scanner": "^1.0.0-alpha.7",
     "react-scripts": "4.0.3",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "preinstall": "npx npm-force-resolutions",
+    "deploy": "react-scripts build && aws s3 rm s3://qrreader.com/ --recursive && aws s3 cp ./build s3://qrreader.com/ --recursive --acl public-read"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +44,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  },
+  "resolutions": {
+    "postcss": "^8.2.10"
   }
 }

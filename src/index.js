@@ -1,17 +1,36 @@
-import React from 'react';
+import React,{Component} from 'react'
 import ReactDOM from 'react-dom';
+import QrReader from 'react-qr-scanner'
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class QrContainer extends Component{
+	constructor(props) {
+		super(props)
+	  	this.state = {text : "", data:""}
+	}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+	render(){
+		return(
+			<React.Fragment>
+			<div>
+				<QrReader delay={1000} onError={this.handleError.bind(this)} onScan={this.handleScan.bind(this)}/>
+			</div>
+			
+			</React.Fragment>
+		)
+	}
+
+	handleScan(data) {
+		if (data) {
+		  this.setState({text: "Confirm order for "+data.text+" ID: "});
+		  this.setState({result: data});
+		  window.location.href=data.text;
+		}
+	  }
+
+	handleError(error){
+		console.log(error)
+	}
+
+}
+ReactDOM.render(<QrContainer/>,document.getElementById('reacthere'))
